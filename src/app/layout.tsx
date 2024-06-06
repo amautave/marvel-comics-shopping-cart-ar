@@ -1,6 +1,24 @@
+// import { Html, Head, Main, NextScript } from "next/document";
+//
+// export default function RootLayout() {
+//   return (
+//     <Html lang="en">
+//       <Head />
+//       <body className="bg-[url('/background.png')] h-full m-0 p-0">
+//         <Main />
+//         <NextScript />
+//       </body>
+//     </Html>
+//   );
+// }
+//
+
+import clsx from "clsx";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import ToastContainerWrapper from "../components/toast-container-wrapper/toast-container-wrapper";
 import "./globals.css";
+import Navbar from "../components/navbar/navbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,9 +32,22 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const bodyClassNames = clsx(
+    inter.className,
+    "bg-[url('/background.png')] h-full m-0 p-0",
+  );
+
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={bodyClassNames}>
+        <div className="h-full">
+          <div className="absolute h-full">
+            <Navbar />
+            {children}
+          </div>
+        </div>
+      </body>
+      <ToastContainerWrapper />
     </html>
   );
 }
